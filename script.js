@@ -21,7 +21,19 @@ file.addEventListener("change", (event) => {
 });
 
 function filterStr(str) {
-  return str.match(emailRegex).join("\n");
+  let emails = str.match(emailRegex);
+  for (let i = 0; i < emails.length; i++) {
+    if (itemCount(emails, emails[i]) > 1) emails.splice(i, 1);
+  }
+  return emails.join("\n");
+}
+
+function itemCount(array, item) {
+  let count = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] == item) count++;
+  }
+  return count;
 }
 
 function download(file, text) {
